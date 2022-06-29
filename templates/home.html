@@ -1,0 +1,199 @@
+{% extends 'base.html' %} 
+{% block content%}
+<div class="container">
+  
+    <button id="measurement" type="button" class="btn btn-primary">Take Measurements</button>
+
+  <div id="spinner"></div>
+</div>
+
+<div class="container">
+  <h2>Current Measured Data</h2>
+  <table class="table table-responsive{-sm|-md|-lg|-xl}">
+    <tr class="table-primary">
+      <!-- <td class="table-primary">Time Stamp(UTC)</td> -->
+      <td class="table-primary">Leaf Temp(℃)</td>
+      <td class="table-primary">Light Intesity(Lux)</td>
+      <td class="table-primary">Ambient Temp(℃)</td>
+      <td class="table-primary">Grape Type</td>
+      <td class="table-primary">Pressure(psi)</td>
+    </tr>
+    <tr class="table-secondary">
+      <!-- <td class="table-secondary">{{dummy_db['TimeStamp']}}</td> -->
+      <td id="leaftemp" class="table-secondary">Min - {{dummy_db['MinTemp']}} <br>Max - {{dummy_db['MaxTemp']}} <br>Average - {{dummy_db['AverageTemp']}}</td>
+      <td id="light" class="table-secondary">{{dummy_db['LightIntensity']}}</td>
+      <td id="ambientTemp" class="table-secondary">{{dummy_db['AmbientTemp']}}</td>
+      <td class="table-secondary">
+        
+        <form class="row g-3" action="{{url_for ('save_data')}}" method="POST">
+
+          <div class="col-auto">
+            <!-- <label for="pressuretext" class="visually-hidden">Grape Type</label>
+            <input
+              type="text"
+              name="grapetype"
+              class="form-control"
+              id="grapetypetext"
+              placeholder="Grape Type"
+            /> -->
+            <select name="grape_type" class="form-select" id="grapetype">
+              <option value="" >--select type--</option>
+              {% for gtype in grape_types %}
+              <option value="{{gtype.grape_type}}">{{gtype.grape_type}}</option>
+              {% endfor %}
+              <option value="99" class="add-new">Add_New</option>
+            </select>
+          </div>
+          
+        
+      </td>
+      <td>
+        <div class="col-auto">
+          <label for="pressuretext" class="visually-hidden">Pressure</label>
+          <input
+            type="text"
+            name="pressure"
+            class="form-control"
+            id="pressuretext"
+            placeholder="Pressure"
+          />
+        </div>
+
+      </td>
+
+    </tr>
+    <tr>
+      <td colspan="6">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Save</button>
+        </div>
+      </td>
+
+    </form>
+    </tr>
+  </table>
+</div>
+<div class="container">
+  <figcaption>Thermal image of current leaf</figcaption>
+  <img id="cameraImage" src="/static/images/noimage.png" class="center" alt="cameraImage">
+  
+</div>
+<div class="container">
+  <h2>Historical Data</h2>
+  <table class="table table-dark table-striped table-responsive{-sm|-md|-lg|-xl}">
+    <tr class="table-primary">
+      <td class="table-primary">Time Stamp</td>
+      <td class="table-primary">Min Temp(℃)</td>
+      <td class="table-primary">Max Temp(℃)</td>
+      <td class="table-primary">Average Temp(℃)</td>
+      <td class="table-primary">Grape Type</td>
+      <td class="table-primary">Pressure(psi)</td>
+    </tr>
+
+    {% for data in historical_data | reverse  %}
+    <tr class="table-secondary">
+      <td class="table-secondary">{{moment(data.time_stamp).format('MMMM Do YYYY, h:mm:ss a')}}</td>
+      <td class="table-secondary">{{data.min_temp}}</td>
+      <td class="table-secondary">{{data.max_temp}}</td>
+      <td class="table-secondary">{{data.avg_temp}}</td>
+      <td class="table-secondary">{{data.grape_type.grape_type}}</td>
+      <td class="table-secondary">{{data.pressure}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addtype" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Type</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/add_grape_type" method="POST">
+          <h4>Add new grape type to database</h4>
+          <input type="text" name="grape_type">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+       </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+        $('#grapetype').change(function() {
+    var opval = $(this).val();
+    console.log(opval)
+    if(opval=="99"){
+        console.log('in if')
+        $('#addtype').modal("show");
+        // alert('add new clicked')
+    }
+});
+</script>
+
+
+<script type=text/javascript>
+  $(function() {
+    $('#test').on('click', function(e) {
+      console.log('1')
+      e.preventDefault()
+      const pressure = $('#pressuretext').val();
+      const grape_type = $('#grapetypetext').val();
+      var measurements = {pressure: pressure, grapetype: grape_type};
+      $.get('/background_process_test',measurements,
+          function(data) {
+            console.log(data);
+        $('#measured').html(data);
+       
+      });
+      // console.log('3')   
+      return false;
+    });
+
+    $('#measurement').on('click', function(e) {
+
+      e.preventDefault();
+      console.log("taking measurements");
+      $("#flashmsg").remove();
+
+      $("#spinner").append("<div class='spinner-border text-primary'></div><div>Please wait...</div>");
+      // e.preventDefault()
+      $.get('/take_measurements',
+          function(data) {
+            let dummy_db = data['dummy_db'];
+            let encoded_img = data['encoded_img']
+            // console.log(data['dummy_db'])
+            // console.log(encoded_img)
+            $("#spinner ").children().remove();
+            // $("#MinTemp").text(data["MinTemp"]);
+            $("#leaftemp").html(`Min - ${dummy_db['MinTemp']} <br>Max - ${dummy_db['MaxTemp']}<br>Average - ${dummy_db['AverageTemp']}`)
+            // $("#light").html(dummy_db['LightIntensity']} <br>Max - ${dummy_db['MaxTemp']}<br>Average - ${dummy_db['AverageTemp']}`)
+            $("#light").text(dummy_db["LightIntensity"]);
+            $("#ambientTemp").text(dummy_db["AmbientTemp"]);
+            // $("#cameraImage").attr('src',"{{url_for('static', filename = 'images/out.jpg')}}");
+            // url = {{url_for('static', filename="")}}+'images/output.jpg?random='+new Date().getTime();
+            // encoded_img = dummy_db['encoded_img']
+            // console.log(url)
+            $("#cameraImage").prop("src", `data:image/jpg;base64,${encoded_img}`);
+            console.log(encoded_img)
+            // document.getElementById('cameraImage').src = `data:image/jpg;base64,${encoded_img}`
+            $('#measured').html(dummy_db['Message']);
+            
+      });
+      // console.log('3')   
+      return false;
+    });
+
+
+  });
+</script>
+
+{% endblock %}

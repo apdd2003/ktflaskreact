@@ -11,20 +11,30 @@ import "./takemeas.css";
 
 export function takeMeasurements(setmdata){
 
-  setmdata("hello")
+  let url = "http://127.0.0.1:5000/take_measurements";
+  fetch("/take_measurements").then(
+    res => res.json()
+  ).then(
+    data => {
+      setmdata(data)
+      console.log(data)
+    }
+  )
+
+  
 
 }
 
 function TakeMeas() {
 
-  const [mdata, setmdata]=useState("");
+  const [mdata, setmdata]=useState([]);
   useEffect(()=>{
 
-  },[mdata]); 
+  },[]); 
 
     return (
       <>
-        <button onClick={()=>setmdata("new h"+Math.random())} className='tm' >Take Measurements</button>
+        <button onClick={()=>takeMeasurements(setmdata)} className='tm' >Take Measurements</button>
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
@@ -43,12 +53,12 @@ function TakeMeas() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {mdata}
+                {mdata['AmbientTemp']}
               </TableCell>
-              <TableCell align="right">{mdata}</TableCell>
-              <TableCell align="right">{mdata}</TableCell>
-              <TableCell align="right">{mdata}</TableCell>
-              <TableCell align="right">{mdata}</TableCell>
+              <TableCell align="right">rwar</TableCell>
+              <TableCell align="right">Test</TableCell>
+              <TableCell align="right">Test</TableCell>
+              <TableCell align="right">Test</TableCell>
             </TableRow>
           
         </TableBody>

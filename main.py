@@ -92,8 +92,8 @@ def save_data():
     # global DATA_REQ
     
     new_db = dummy_db
-    print(len(dummy_db))
-    print(request.form.get('grape_type'))
+    print(dummy_db['AmbientTemp'])
+    print(request.get_json(force=True)['data']['MinTemp'])
     new_db['Pressure'] = request.form.get("pressure")
     new_db['GrapeType'] = request.form.get("grape_type")
     leaf_grape_type = GrapeTypes.query.filter_by(

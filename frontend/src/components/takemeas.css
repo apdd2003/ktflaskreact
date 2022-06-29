@@ -1,0 +1,11 @@
+.tm{
+    display: block;
+    align-self: center;
+    margin: auto;
+    padding: 10px;
+    background-color: blue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}

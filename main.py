@@ -114,7 +114,7 @@ def save_data():
     elif not isFloat(new_db['Pressure']):
         flash('Pressure must be numeric value', 'danger')
         if args.api:
-            return {"error":"Grape type or Pressure value is invalid"}
+            return {"error":"Pressure must be numeric value"}
         else:
             return redirect(url_for('home'),400)
 
@@ -140,32 +140,20 @@ def save_data():
         flash("Measurements saved in database", 'success')
         return redirect(url_for('home'))
 
-
+@app.route('/history', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def home():
     global dummy_db
     # global DATA_REQ
 
-    historical_data = LeafData.query #.order_by(LeafData.id.asc())
+    historical_data = LeafData.query .order_by(LeafData.id.desc())
     # grape_types=db.session.query(GrapeTypes).all()
     grape_types = GrapeTypes.query.all()
     # print(grape_types[0].grape_type)
     # print("histdata : ", historical_data)
     # print("\n grp data : ", grape_types)
 
-# <<<<<<< HEAD
-    # if request.method == 'POST':
-    #     dummy_db = get_sensor_data()
-# =======
-    # # print(historical_data)
-    # if request.method == 'POST':
-    #     dummy_db = get_sensor_data()
-# >>>>>>> master
 
-    #     return render_template("home.html",
-    #                            dummy_db=dummy_db,
-    #                            historical_data=historical_data,
-    #                            grape_types=grape_types)
 
     if args.api:
 

@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import "./inputdata.css";
 
 
@@ -26,18 +27,18 @@ export function saveData() {
       }
     )
 
-
-
 }
 
 
 function InputData() {
   return (
-    <div className="inputcontainer container">
-      <label>Grape Type </label>
-      <input id="grapeTypeData" className="inputData form-control" type="text" placeholder="Enter Grape Type" />
-      <label>Pressure </label>
-      <input id="pressureData" className="inputData form-control" type="text" placeholder="Enter Pressure" />
+    <div className="inputcontainer container ">
+      {/* <label>Grape Type </label> */}
+      {/* <input id="grapeTypeData" className="inputData form-control" type="text" placeholder="Enter Grape Type" /> */}
+      <TextField id="grapeTypeData" className="form-control tf" label="Grape Type" variant="outlined" />
+      {/* <label>Pressure </label> */}
+      <TextField id="pressureData" className="form-control tf" label="Pressure" variant="outlined" />
+      {/* <input id="pressureData" className="inputData form-control" type="text" placeholder="Enter Pressure" /> */}
       <button className="saveDataBtn btn btn-primary" onClick={() => saveData()}>Save Data</button>
       <div id="saveStatusMsg" className="alert alert-info" role="alert">
 

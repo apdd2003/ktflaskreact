@@ -10,7 +10,7 @@ import argparse
 # import flask
 from flask import render_template, redirect, url_for, flash, request, jsonify
 
-DATA_REQ = 0
+# DATA_REQ = 0
 dummy_db = {}
 # db.create_all()
 # from scrathpad import save_camera_image
@@ -93,7 +93,8 @@ def save_data():
     
     new_db = dummy_db
     print(dummy_db['AmbientTemp'])
-    print(request.get_json(force=True)['data']['MinTemp'])
+    # print(request.get_json(force=True)['data']['MinTemp'])
+    # print(request.form.get('Pressure'))
     new_db['Pressure'] = request.form.get("pressure")
     new_db['GrapeType'] = request.form.get("grape_type")
     leaf_grape_type = GrapeTypes.query.filter_by(
@@ -143,7 +144,7 @@ def save_data():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     global dummy_db
-    global DATA_REQ
+    # global DATA_REQ
 
     historical_data = LeafData.query #.order_by(LeafData.id.asc())
     # grape_types=db.session.query(GrapeTypes).all()

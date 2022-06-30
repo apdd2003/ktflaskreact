@@ -1,4 +1,27 @@
 .inputcontainer{
     margin-top: 20px;
+    /* display: flex; */
     
+}
+.saveDataBtn{
+
+    align-self: center;
+    margin: auto;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 10px;
+    background-color: blue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.inputData{
+    
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
 }

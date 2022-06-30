@@ -1,38 +1,49 @@
 import "./inputdata.css";
 
 
-export function saveData(){
+export function saveData() {
 
-    // let url = "http://127.0.0.1:5000/take_measurements";
-    fetch("/save_data",
-    { method: "POST",
-    body: JSON.stringify({"data": {"MinTemp":22, "MaxTemp":44, "AverageTemp":33, "AmbientTemp":25, "LightIntensity":55454, 
-                "GrapeType":'Malbec', "Pressure":"1"}}),
-}).then(
+  var data = new FormData();
+  data.append("grape_type", document.getElementById("grapeTypeData").value);
+  data.append("pressure", document.getElementById("pressureData").value);
+
+
+  // let url = "http://127.0.0.1:5000/take_measurements";
+  fetch("/save_data",
+    {
+      method: "POST",
+
+      // body: JSON.stringify({"data": {"MinTemp":22, "MaxTemp":44, "AverageTemp":33, "AmbientTemp":25, "LightIntensity":55454, 
+      // "GrapeType":'Malbec', "Pressure":"1"}}),
+      body: data,
+    }).then(
       res => res.json()
     ).then(
       data => {
-        
+
         console.log(data)
+        document.getElementById("saveStatusMsg").innerHTML = data.status ? data.status : data.error;
       }
     )
-  
-    
-  
-  }
 
+
+
+}
 
 
 function InputData() {
-    return (
-      <div className="inputcontainer">
-            <label>Grape Type </label>
-        <input type="text" placeholder="Enter Grape Type"/>
+  return (
+    <div className="inputcontainer container">
+      <label>Grape Type </label>
+      <input id="grapeTypeData" className="inputData form-control" type="text" placeholder="Enter Grape Type" />
       <label>Pressure </label>
-        <input type="text" placeholder="Enter Pressure"/>
-        <button onClick = {()=>saveData()}>Save Data</button>
+      <input id="pressureData" className="inputData form-control" type="text" placeholder="Enter Pressure" />
+      <button className="saveDataBtn btn btn-primary" onClick={() => saveData()}>Save Data</button>
+      <div id="saveStatusMsg" className="alert alert-info" role="alert">
+
       </div>
-    );
-  }
-  
-  export default InputData;
+    </div>
+  );
+}
+
+export default InputData;

@@ -11,11 +11,16 @@ import './historicalData.css';
 
 function HistoricalData({changeHistory}) {
     const [hData, sethData] = useState([]);
+
     
     useEffect(() => {
         fetch("/history").then(
-            res => res.json()
-          ).then(
+            res => {
+                if (!res.ok) {
+                    return Promise.reject(res);
+                }
+                return res.json();
+            }).then(
             data => {
               console.log(data['historical_data'])
               sethData(data['historical_data'])

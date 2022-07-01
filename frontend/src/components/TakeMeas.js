@@ -16,13 +16,19 @@ export function takeMeasurements(setmdata) {
 
   // let url = "http://127.0.0.1:5000/take_measurements";
   fetch("/take_measurements").then(
-    res => res.json()
-  ).then(
+    res => {
+      if (!res.ok) {
+          return Promise.reject(res);
+      }
+      return res.json();
+  }).then(
     data => {
       setmdata(data['dummy_db'])
       console.log(data['dummy_db']['AmbientTemp'])
       document.getElementById("spinnerMeasurement").style.display='none';
     }
+  ).catch(
+    console.log("Meas error")
   )
 
 

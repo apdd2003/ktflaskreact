@@ -13,3 +13,4 @@ def test_save_data():
     with app.test_client() as test_client:
         response = test_client.post('/save_data', data={'pressure': 2.13, 'grape_type':'Merlot'})
         assert response.status_code == 302
+        

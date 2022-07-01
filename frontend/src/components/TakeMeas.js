@@ -40,7 +40,7 @@ function TakeMeas() {
 
   return (
     <div className='container'>
-      <button onClick={() => takeMeasurements(setmdata)} className='tm' >Take Measurements</button>
+      <button onClick={() => takeMeasurements(setmdata)} className='tm btn btn-primary' >Take Measurements</button>
 
       <div className="d-flex justify-content-center container">
         <div id="spinnerMeasurement" className="spinner-border" role="status">

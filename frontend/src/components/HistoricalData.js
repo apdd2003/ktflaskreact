@@ -8,11 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './historicalData.css';
 
-function HistoricalData() {
+
+function HistoricalData({changeHistory}) {
     const [hData, sethData] = useState([]);
+    
     useEffect(() => {
-
-
         fetch("/history").then(
             res => res.json()
           ).then(
@@ -25,7 +25,7 @@ function HistoricalData() {
           )
         //   document.getElementById("spinnerMeasurement").style.display='none';
         // console.log(mdata)
-    }, []);
+    }, [changeHistory]);
 
     return (
         <div className='container historical-data'>

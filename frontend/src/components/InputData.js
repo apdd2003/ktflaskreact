@@ -1,48 +1,48 @@
 import { TextField } from "@mui/material";
+import { useState } from "react";
 import "./inputdata.css";
-
-
-export function saveData() {
-
-  var data = new FormData();
-  data.append("grape_type", document.getElementById("grapeTypeData").value);
-  data.append("pressure", document.getElementById("pressureData").value);
-
-
-  // let url = "http://127.0.0.1:5000/take_measurements";
-  fetch("/save_data",
-    {
-      method: "POST",
-
-      // body: JSON.stringify({"data": {"MinTemp":22, "MaxTemp":44, "AverageTemp":33, "AmbientTemp":25, "LightIntensity":55454, 
-      // "GrapeType":'Malbec', "Pressure":"1"}}),
-      body: data,
-    }).then(
-      res => res.json()
-    ).then(
-      data => {
-
-        console.log(data)
-        document.getElementById("saveStatusMsg").innerHTML = data.status ? data.status : data.error;
-      }
-    )
-
-}
-
+// import { MyUpdate } from "./HistoricalData";
+import HistoricalData from "./HistoricalData";
 
 function InputData() {
+  const [resStatus, setResStatus] = useState("");
+  const [resData, setResData] = useState([]);
+
+  const saveData = (setResStatus) => {
+    var data = new FormData();
+    data.append("grape_type", document.getElementById("grapeTypeData").value);
+    data.append("pressure", document.getElementById("pressureData").value);
+
+
+    fetch("/save_data",
+      {
+        method: "POST",
+
+        body: data,
+      }).then(
+        res => res.json()
+      ).then(
+        data => {
+
+          console.log("data=======", data)
+
+          setResStatus(data.status ? data.status : data.error)
+          if (data.status) {
+            setResData(data.data);
+          }
+        }
+      )
+  }
+
   return (
     <div className="inputcontainer container ">
-      {/* <label>Grape Type </label> */}
-      {/* <input id="grapeTypeData" className="inputData form-control" type="text" placeholder="Enter Grape Type" /> */}
       <TextField id="grapeTypeData" className="form-control tf" label="Grape Type" variant="outlined" />
-      {/* <label>Pressure </label> */}
       <TextField id="pressureData" className="form-control tf" label="Pressure" variant="outlined" />
-      {/* <input id="pressureData" className="inputData form-control" type="text" placeholder="Enter Pressure" /> */}
-      <button className="saveDataBtn btn btn-primary" onClick={() => saveData()}>Save Data</button>
+      <button className="saveDataBtn btn btn-primary" onClick={() => saveData(setResStatus)}>Save Data</button>
       <div id="saveStatusMsg" className="alert alert-info" role="alert">
-
+        {resStatus}
       </div>
+      <HistoricalData changeHistory={resData} />
     </div>
   );
 }

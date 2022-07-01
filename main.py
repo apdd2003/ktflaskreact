@@ -200,12 +200,7 @@ parser.add_argument('--api', help="Run the code as API.", action='store_true')
 parser.add_argument('--cov', help="Run the code as API.", action='store_true')
 # parser.add_argument('api', required=False, type=str, default=None)
 args = parser.parse_args()
-# print("\n##############\n Args : ", args._get_kwargs()[0][0], "\n#############")
-# print(args.accumulate(args.integers))
-# print(type(args._get_kwargs()[0][1]))
-# DATA_REQ = int(args._get_kwargs()[0][1])
-# DATA_REQ = args.api
-# print("Data Request : ", DATA_REQ)
+
 
 
 if __name__ == "__main__":

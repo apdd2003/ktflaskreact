@@ -1,18 +1,17 @@
-import TakeMeas from './components/TakeMeas';
 import React from 'react';
-import InputData from './components/InputData';
-// import TopBar from './components/TopBar';
-// import HistoricalData from './components/HistoricalData';
-import ResponsiveAppBar from './components/navBar';
+import AppRouter from './AppRouter';
+
 
 function App() {
   return (
     <>
+      
       {/* <TopBar/> */}
 
-    <ResponsiveAppBar/>
-      <TakeMeas/>
-      <InputData />
+    {/* <ResponsiveAppBar/> */}
+      {/* <TakeMeas/> */}
+      {/* <InputData /> */}
+      <AppRouter />
       {/* <HistoricalData/> */}
     </>
   );

@@ -1,7 +1,6 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import "./inputdata.css";
-// import { MyUpdate } from "./HistoricalData";
 import HistoricalData from "./HistoricalData";
 
 function InputData() {

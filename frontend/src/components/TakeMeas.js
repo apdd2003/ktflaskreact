@@ -7,40 +7,39 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import InputData from './InputData';
 import "./takemeas.css";
 
-export function takeMeasurements(setmdata) {
 
-  document.getElementById("spinnerMeasurement").style.display='block';
-
-
-  // let url = "http://127.0.0.1:5000/take_measurements";
-  fetch("/take_measurements").then(
-    res => {
-      if (!res.ok) {
-          return Promise.reject(res);
-      }
-      return res.json();
-  }).then(
-    data => {
-      setmdata(data['dummy_db'])
-      console.log(data['dummy_db']['AmbientTemp'])
-      document.getElementById("spinnerMeasurement").style.display='none';
-    }
-  ).catch(
-    console.log("Meas error")
-  )
-
-
-
-}
 
 function TakeMeas() {
 
   const [mdata, setmdata] = useState({});
+  const takeMeasurements = (setmdata) => {
+
+    document.getElementById("spinnerMeasurement").style.display = 'block';
+
+
+    fetch("/take_measurements").then(
+      res => {
+        if (!res.ok) {
+          return Promise.reject(res);
+        }
+        return res.json();
+      }).then(
+        data => {
+          setmdata(data['dummy_db'])
+          console.log(data['dummy_db']['AmbientTemp'])
+          document.getElementById("spinnerMeasurement").style.display = 'none';
+        }
+      ).catch(
+        console.log("Meas error")
+      )
+
+  }
   useEffect(() => {
 
-    document.getElementById("spinnerMeasurement").style.display='none';
+    document.getElementById("spinnerMeasurement").style.display = 'none';
     // console.log(mdata)
   }, [mdata]);
 
@@ -81,6 +80,7 @@ function TakeMeas() {
           </TableBody>
         </Table>
       </TableContainer>
+      <InputData/>
     </div>
   );
 }

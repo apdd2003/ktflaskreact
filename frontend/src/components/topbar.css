@@ -1,4 +1,22 @@
 .topbar{
     background-color: rgb(209, 195, 149);
     color: white;
+    display: flex;
+    
+}
+ul{
+    list-style: none;
+    display: inline-flex;
+    align-items: flex-start;
+}
+li{
+    margin: 5px;
+    align-items: flex-start;
+    flex-direction: row;
+    text-decoration: none;
+}
+.nlink{
+    text-decoration: none;
+    color: black;
+    /* background-color: ; */
 }

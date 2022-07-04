@@ -4,13 +4,13 @@ from datetime import datetime
 
 
 class LeafData(db.Model):
-    __tablename__ = "leafdata2"
+    __tablename__ = "leafdata4"
     id = db.Column(db.Integer, primary_key=True)
     time_stamp = db.Column(db.DateTime, default=datetime.utcnow)
     min_temp = db.Column(db.Float)
     max_temp = db.Column(db.Float)
     avg_temp = db.Column(db.Float)
-    grape_type2_id = db.Column(db.Integer, db.ForeignKey("grape_type3.id",ondelete="CASCADE"))
+    grape_type3id = db.Column(db.Integer, db.ForeignKey("grape_type3.id",ondelete="CASCADE"))
     # grape_type = db.Column(db.String(100), nullable=False)
 
     pressure = db.Column(db.Float)

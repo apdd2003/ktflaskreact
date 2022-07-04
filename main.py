@@ -1,3 +1,4 @@
+import csv
 from app import app, db
 import random
 from datetime import datetime
@@ -8,7 +9,7 @@ import base64
 import argparse
 
 # import flask
-from flask import render_template, redirect, url_for, flash, request, jsonify
+from flask import render_template, redirect, send_file, url_for, flash, request, jsonify
 
 # DATA_REQ = 0
 dummy_db = {}
@@ -44,6 +45,35 @@ def isFloat(num):
     except ValueError:
         return False
 
+
+######################
+@app.route('/download')
+def download():
+    with open(r'allmeasured.csv', 'w') as s_key:
+        alldata = LeafData.query.all()  # Add columns to query as needed
+        csv_out = csv.writer(s_key)
+        csv_out.writerow([
+            'Leaf_MinTemp', 'Leaf_MaxTemp', 'Leaf_AverageTemp', 'Grape Type',
+            'Pressure'
+        ])
+        for data in alldata:
+
+            csv_out.writerow([
+                data.min_temp, data.max_temp, data.avg_temp,
+                data.grape_type.grape_type if data.grape_type else "--",
+                data.pressure
+            ])
+    csvfile = send_file('./allmeasured.csv',
+                     mimetype='text/csv',
+                     download_name='alldata.csv',
+                     as_attachment=True)
+    # print(csvfile.get_data(as_text=True))
+    return csvfile
+    # return send_file('./allmeasured.csv',
+                    #  mimetype='text/csv',
+                    #  download_name='alldata.csv',
+                    #  as_attachment=True)
+######################
 
 ##############################################
 # New code here

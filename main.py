@@ -122,15 +122,15 @@ def save_data():
     # global DATA_REQ
     
     new_db = dummy_db
-    print(dummy_db['AmbientTemp'])
+    # print(dummy_db['AmbientTemp'])
     # print(request.get_json(force=True)['data']['MinTemp'])
-    print(request.form.get('pressure'))
-    print(request.form.get('grape_type'))
+    # print(request.form.get('pressure'))
+    # print(request.form.get('grape_type'))
     new_db['Pressure'] = request.form.get("pressure")
     new_db['GrapeType'] = request.form.get("grape_type")
     leaf_grape_type = GrapeTypes.query.filter_by(
         grape_type=new_db['GrapeType']).first()
-    print(leaf_grape_type.grape_type)
+    # print(leaf_grape_type.grape_type)
     if len(new_db)==2:
         flash('Please take measurements again!', 'danger')
         if args.api:
@@ -229,7 +229,7 @@ parser = argparse.ArgumentParser(description="Test Args", prog='main.py')
 # parser.add_argument('integers', metavar='N', type=int,
 #                     help='an integer for the accumulator')
 parser.add_argument('--api', help="Run the code as API.", action='store_true')
-parser.add_argument('--cov', help="Run the code as API.", action='store_true')
+parser.add_argument('--cov', help=".", action='store_true') 
 # parser.add_argument('api', required=False, type=str, default=None)
 args = parser.parse_args()
 

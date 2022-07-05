@@ -8,10 +8,10 @@ function AppRouter() {
     return (
         <Router>
             <Routes>
-            <Route path="/" element={<TopBar />}>
-            <Route exact path='/' element={< TakeMeas />}></Route>
-                <Route exact path='/history' element={< HistoricalData />}></Route>
-                <Route exact path='/download' element={< Download />}></Route>
+                <Route path="/" element={<TopBar />}>
+                    <Route exact path='/' element={< TakeMeas />}></Route>
+                    <Route exact path='/history' element={< HistoricalData />}></Route>
+                    <Route exact path='/download' element={< Download />}></Route>
                 </Route>
             </Routes>
         </Router>

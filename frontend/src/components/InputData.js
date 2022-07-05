@@ -8,6 +8,13 @@ function InputData() {
   const [resData, setResData] = useState([]);
 
   const saveData = (setResStatus) => {
+
+    const mtemp = document.getElementById('minTemp').innerText;
+    // console.log(mtemp, typeof mtemp)
+    if (!mtemp){
+      setResStatus("Please take measurements again!")
+      return
+    }
     var data = new FormData();
     data.append("grape_type", document.getElementById("grapeTypeData").value);
     data.append("pressure", document.getElementById("pressureData").value);

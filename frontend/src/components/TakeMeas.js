@@ -70,7 +70,7 @@ function TakeMeas() {
               key={Math.random()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="right">{mdata['MinTemp']}</TableCell>
+              <TableCell align="right"><span id='minTemp'>{mdata['MinTemp']}</span></TableCell>
               <TableCell align="right">{mdata['MaxTemp']}</TableCell>
               <TableCell align="right">{mdata['AverageTemp']}</TableCell>
               <TableCell align="right">{mdata['AmbientTemp']}</TableCell>

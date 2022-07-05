@@ -9,11 +9,12 @@ import Paper from '@mui/material/Paper';
 import './historicalData.css';
 
 
-function HistoricalData({changeHistory}) {
+function HistoricalData({ changeHistory }) {
     const [hData, sethData] = useState([]);
 
-    
+
     useEffect(() => {
+        document.getElementById("spinnerHistory").style.display = 'block';
         fetch("/history").then(
             res => {
                 if (!res.ok) {
@@ -21,20 +22,27 @@ function HistoricalData({changeHistory}) {
                 }
                 return res.json();
             }).then(
-            data => {
-              console.log(data['historical_data'])
-              sethData(data['historical_data'])
-            }
-          ).catch(
-            console.log("error2")
-          )
+                data => {
+                    console.log(data['historical_data'])
+                    sethData(data['historical_data'])
+                    document.getElementById("spinnerHistory").style.display = 'none';
+                }
+            ).catch(
+                console.log("error2")
+            )
         //   document.getElementById("spinnerMeasurement").style.display='none';
         // console.log(mdata)
     }, [changeHistory]);
 
     return (
         <div className='container historical-data'>
-            <h4>Historical Data</h4>  
+            <h4>Historical Data
+                <div className="d-flex justify-content-left container">
+                    <div id="spinnerHistory" className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </h4>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead >
@@ -47,18 +55,18 @@ function HistoricalData({changeHistory}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {Object.values(hData).map((data,index)=>(
-                        <TableRow
-                            key={index}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell align="right">{data.min_temp}</TableCell>
-                            <TableCell align="right">{data.max_temp}</TableCell>
-                            <TableCell align="right">{data.avg_temp}</TableCell>
-                            <TableCell align="right">{data.grape_type}</TableCell>
-                            <TableCell align="right">{data.pressure}</TableCell>
-                        </TableRow>
-                    ))}
+                        {Object.values(hData).map((data, index) => (
+                            <TableRow
+                                key={index}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell align="right">{data.min_temp}</TableCell>
+                                <TableCell align="right">{data.max_temp}</TableCell>
+                                <TableCell align="right">{data.avg_temp}</TableCell>
+                                <TableCell align="right">{data.grape_type}</TableCell>
+                                <TableCell align="right">{data.pressure}</TableCell>
+                            </TableRow>
+                        ))}
 
 
 

@@ -11,12 +11,23 @@ ul{
 }
 li{
     margin: 5px;
+    margin-top: 25px;
     align-items: flex-start;
     flex-direction: row;
     text-decoration: none;
 }
 .nlink{
+
     text-decoration: none;
     color: black;
+    padding: 10px;
+    background-color: bisque;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bolder;
     /* background-color: ; */
+}
+.nlink:hover{
+    background-color: aliceblue;
+    color: black;
 }

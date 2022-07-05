@@ -25,7 +25,7 @@ function HistoricalData({ changeHistory }) {
                 data => {
                     console.log(data['historical_data'])
                     sethData(data['historical_data'])
-                    document.getElementById("spinnerHistory").style.display = 'none';
+                    if (document.getElementById("spinnerHistory")) { document.getElementById("spinnerHistory").style.display = 'none'; }
                 }
             ).catch(
                 console.log("error2")

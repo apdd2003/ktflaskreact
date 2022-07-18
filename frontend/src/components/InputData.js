@@ -1,9 +1,19 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import Button from '@mui/material/Button';
 import "./inputdata.css";
 import HistoricalData from "./HistoricalData";
 
 function InputData() {
+  const style = {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "10px",
+    marginBottom: "10px",
+    padding: "5px",
+    /* width: 50%; */
+  };
   const [resStatus, setResStatus] = useState("");
   const [resData, setResData] = useState([]);
 
@@ -44,7 +54,9 @@ function InputData() {
     <div className="inputcontainer container ">
       <TextField id="grapeTypeData" className="form-control tf" label="Grape Type" variant="outlined" />
       <TextField id="pressureData" className="form-control tf" label="Pressure" variant="outlined" />
-      <button className="saveDataBtn btn btn-primary" onClick={() => saveData(setResStatus)}>Save Data</button>
+      <Button  style = {style} onClick={() => saveData(setResStatus)} variant="contained">Save</Button>
+    
+      {/* <button className="saveDataBtn btn btn-primary" onClick={() => saveData(setResStatus)}>Save Data</button> */}
       <div id="saveStatusMsg" className="alert alert-info" role="alert">
         {resStatus}
       </div>

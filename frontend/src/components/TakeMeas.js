@@ -7,12 +7,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import InputData from './InputData';
 import "./takemeas.css";
 
 
 
 function TakeMeas() {
+  const style = {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "10px",
+    marginBottom: "10px",
+    padding: "5px",
+    /* width: 50%; */
+  };
 
   const [mdata, setmdata] = useState({});
   const takeMeasurements = (setmdata) => {
@@ -45,8 +55,8 @@ function TakeMeas() {
 
   return (
     <div className='container'>
-      <button onClick={() => takeMeasurements(setmdata)} className='tm btn btn-primary' >Take Measurements</button>
-
+      <Button style={style} onClick={() => takeMeasurements(setmdata)} variant="contained">Take Measurements</Button>
+      {/* <button  onClick={() => takeMeasurements(setmdata)} className='tm btn btn-primary' >Take Measurements</button> */}
       <div className="d-flex justify-content-center container">
         <div id="spinnerMeasurement" className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>

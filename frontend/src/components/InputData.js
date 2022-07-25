@@ -4,8 +4,9 @@ import Button from '@mui/material/Button';
 import "./inputdata.css";
 import HistoricalData from "./HistoricalData";
 import GrapeType from "./GrapeType";
+import LeafImage from "./LeafImage";
 
-function InputData() {
+function InputData(props) {
   const style = {
     display: "block",
     marginLeft: "auto",
@@ -73,7 +74,7 @@ function InputData() {
 
           console.log("data=======", data)
 
-          setResStatus(data.status ? data.status : data.ERROR)
+          setResStatus(data.status ? data.status : data.error)
           if (data.status) {
             setResData(data.data);
           }
@@ -93,6 +94,7 @@ function InputData() {
       <div id="saveStatusMsg" style={style2}>
         {resStatus}
       </div>: null}
+      <LeafImage image ={props.leafImage}/>
       <HistoricalData changeHistory={resData} />
     </div>
   );

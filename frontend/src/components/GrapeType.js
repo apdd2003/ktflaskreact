@@ -33,7 +33,7 @@ export default function GrapeType(props) {
                 console.log("===error in grape type")
             )
         //   document.getElementById("spinnerMeasurement").style.display='none';
-    }, [grape_type]);
+    },[]);
 
 
     return (

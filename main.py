@@ -172,6 +172,7 @@ def save_data():
         flash("Measurements saved in database", 'success')
         return redirect(url_for('home'))
 
+@app.route('/grape_types')
 @app.route('/history', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def home():

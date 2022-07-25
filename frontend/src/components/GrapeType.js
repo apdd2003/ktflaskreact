@@ -17,7 +17,7 @@ export default function GrapeType(props) {
     React.useEffect(() => {
         console.log("gt==>",grape_type)
         // document.getElementById("spinnerHistory").style.display = 'block';
-        fetch("/history").then(
+        fetch("/grape_types").then(
             res => {
                 if (!res.ok) {
                     return Promise.reject(res);

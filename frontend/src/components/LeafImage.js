@@ -1,6 +1,11 @@
-import * as React from 'react';
+// import * as React from 'react';
 export default function LeafImage(props) {
-    var image = props.image;
+    var src = "";
+    props.image ?
+        src = `data:image/jpg;base64,${props.image}`
+        :
+        src = "noimage.png";
+
     // React.useEffect(() => {
     //     console.log("gt==>",leafImage)
     //     // document.getElementById("spinnerHistory").style.display = 'block';
@@ -25,19 +30,14 @@ export default function LeafImage(props) {
 
 
         <>
-        <h5 className='center'>Leaf thermal image</h5>
-            {image ? <img
-                src={`data:image/jpg;base64,${props.image}`}
+            <h5 className='center'>Leaf thermal image</h5>
+
+            <img
+                src={src}
                 width="50%"
                 className='center'
                 alt="Leaf Image"
-            /> :
-            <img
-            src="noimage.png"
-            width="50%"
-            className='center'
-            alt="Leaf Image"
-        />}
+            />
 
         </>
 

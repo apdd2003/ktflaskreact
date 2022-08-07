@@ -25,6 +25,7 @@ function TakeMeas() {
   };
 
   const [mdata, setmdata] = useState({});
+  const [leafImage, setLeafImage]= useState('');
   const takeMeasurements = (setmdata) => {
 
     document.getElementById("spinnerMeasurement").style.display = 'block';
@@ -39,7 +40,9 @@ function TakeMeas() {
       }).then(
         data => {
           setmdata(data['dummy_db'])
+          setLeafImage(data['encoded_img'])
           console.log(data['dummy_db']['AmbientTemp'])
+          // console.log('Image===',data['encoded_img']);
           document.getElementById("spinnerMeasurement").style.display = 'none';
         }
       ).catch(
@@ -90,7 +93,7 @@ function TakeMeas() {
           </TableBody>
         </Table>
       </TableContainer>
-      <InputData/>
+      <InputData leafImage ={leafImage}/>
     </div>
   );
 }

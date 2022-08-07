@@ -13,7 +13,7 @@ from flask import render_template, redirect, send_file, url_for, flash, request,
 
 # DATA_REQ = 0
 dummy_db = {}
-# db.create_all()
+db.create_all()
 # from scrathpad import save_camera_image
 
 
@@ -49,7 +49,7 @@ def isFloat(num):
 ######################
 @app.route('/download')
 def download():
-    with open(r'allmeasured.csv', 'w') as s_key:
+    with open(r'allmeasured.csv', 'w', newline='') as s_key:
         alldata = LeafData.query.all()  # Add columns to query as needed
         csv_out = csv.writer(s_key)
         csv_out.writerow([
@@ -172,6 +172,7 @@ def save_data():
         flash("Measurements saved in database", 'success')
         return redirect(url_for('home'))
 
+@app.route('/grape_types')
 @app.route('/history', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def home():

@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class LeafData(db.Model):
-    __tablename__ = "leafdata4"
+    __tablename__ = "leafdata5"
     id = db.Column(db.Integer, primary_key=True)
     time_stamp = db.Column(db.DateTime, default=datetime.utcnow)
     min_temp = db.Column(db.Float)

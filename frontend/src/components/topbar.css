@@ -4,7 +4,7 @@
     display: flex;
     
 }
-ul{
+ul.navlist{
     list-style: none;
     display: inline-flex;
     align-items: flex-start;
@@ -24,10 +24,13 @@ li{
     background-color: bisque;
     border-radius: 5px;
     font-size: 1.1rem;
-    font-weight: bolder;
+    /* font-weight: bolder; */
     /* background-color: ; */
 }
 .nlink:hover{
     background-color: aliceblue;
     color: black;
+}
+.test{
+    color: lightsteelblue;
 }

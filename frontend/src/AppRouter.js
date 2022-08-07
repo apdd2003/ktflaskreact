@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Download from './components/Download';
 import HistoricalData from './components/HistoricalData';
 import TakeMeas from './components/TakeMeas';

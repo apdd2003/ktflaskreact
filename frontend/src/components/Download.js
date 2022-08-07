@@ -1,7 +1,16 @@
-import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 
 function Download() {
 
+  const style = {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "20px",
+    marginBottom: "10px",
+    padding: "5px",
+    /* width: 50%; */
+  };
  
   // const [mdata, setmdata] = useState({});
   const downloadcsv = () => {
@@ -50,7 +59,8 @@ function Download() {
 
   return (
     <div className='container'>
-      <button onClick={() => downloadcsv()} className='tm btn btn-primary' >Download CSV</button>
+      {/* <button onClick={() => downloadcsv()} className='tm btn btn-primary' >Download CSV</button> */}
+      <Button style={style} onClick={() => downloadcsv()} variant="contained">Download CSV</Button>
     </div>
   );
 }

@@ -3,8 +3,10 @@ import { useState } from "react";
 import Button from '@mui/material/Button';
 import "./inputdata.css";
 import HistoricalData from "./HistoricalData";
+import GrapeType from "./GrapeType";
+import LeafImage from "./LeafImage";
 
-function InputData() {
+function InputData(props) {
   const style = {
     display: "block",
     marginLeft: "auto",
@@ -14,10 +16,38 @@ function InputData() {
     padding: "5px",
     /* width: 50%; */
   };
+
+  var style2 = {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "10px",
+    marginBottom: "10px",
+    padding: "5px",
+    backgroundColor: "lightsteelblue",
+    borderRadius: "8px",
+    // color: 'red',
+
+    /* width: 50%; */
+  };
+
+
   const [resStatus, setResStatus] = useState("");
   const [resData, setResData] = useState([]);
+  const [grape, setGrape] = useState('');
+
+
+  var data = new FormData();
+  const updateGrapeType = (grapeType) => {
+
+    data.append("grape_type", grapeType);
+    setGrape(grapeType)
+    setResStatus(null)
+}
 
   const saveData = (setResStatus) => {
+
+    console.log('Grapetype in save==',grape);
 
     const mtemp = document.getElementById('minTemp').innerText;
     // console.log(mtemp, typeof mtemp)
@@ -25,8 +55,10 @@ function InputData() {
       setResStatus("Please take measurements again!")
       return
     }
-    var data = new FormData();
-    data.append("grape_type", document.getElementById("grapeTypeData").value);
+    
+    
+  
+    data.append("grape_type", grape);
     data.append("pressure", document.getElementById("pressureData").value);
 
 
@@ -52,14 +84,19 @@ function InputData() {
 
   return (
     <div className="inputcontainer container ">
-      <TextField id="grapeTypeData" className="form-control tf" label="Grape Type" variant="outlined" />
+      {/* <TextField id="grapeTypeData" className="form-control tf" label="Grape Type" variant="outlined" /> */}
       <TextField id="pressureData" className="form-control tf" label="Pressure" variant="outlined" />
-      <Button  style = {style} onClick={() => saveData(setResStatus)} variant="contained">Save</Button>
+      <GrapeType id ="grapeTypeSelected" grapeVal={updateGrapeType}/>
+      <Button  style = {style} onClick={() => saveData(setResStatus)} variant="contained">
+      Save
+      </Button>
     
       {/* <button className="saveDataBtn btn btn-primary" onClick={() => saveData(setResStatus)}>Save Data</button> */}
-      <div id="saveStatusMsg" className="alert alert-info" role="alert">
+      {resStatus ? 
+      <div id="saveStatusMsg" style={style2}>
         {resStatus}
-      </div>
+      </div>: null}
+      <LeafImage image ={props.leafImage}/>
       <HistoricalData changeHistory={resData} />
     </div>
   );

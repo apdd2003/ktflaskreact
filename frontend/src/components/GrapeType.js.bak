@@ -1,10 +1,52 @@
+<<<<<<< HEAD
+import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
+=======
 import * as React from 'react';
 import Box from '@mui/material/Box';
+>>>>>>> 08f0560038f5ebe79bdc1dca1a6a1ef6f741b497
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+<<<<<<< HEAD
+export default function GrapeSelect() {
+  const [grapeType, setGrapeType] = useState('');
+
+  const handleChange = (event) => {
+    const gtype = event.target.value;
+    setGrapeType(gtype);
+    console.log('grape===>', grapeType);
+  };
+
+  useEffect(() => { 
+       console.log('Updated State===', grapeType)
+    }, [grapeType])
+
+  return (
+    <Box sx={{  minWidth: 200 }}>
+      <FormControl fullWidth >
+        <InputLabel id="demo-simple-select-label">GrapeType</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={grapeType}
+          label="GrapeType"
+          onChange={handleChange}
+          
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+          
+        </Select>
+      </FormControl>
+     </Box>
+  );
+}
+
+=======
 export default function GrapeType(props) {
     const [grape_type, setGrapeType] = React.useState('');
     const [grapeData, setGrapeData] = React.useState([]);
@@ -65,3 +107,4 @@ export default function GrapeType(props) {
         </Box>
     );
 }
+>>>>>>> 08f0560038f5ebe79bdc1dca1a6a1ef6f741b497

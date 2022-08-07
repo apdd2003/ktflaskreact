@@ -9,7 +9,7 @@ function TopBar() {
         <>
             <div className='topbar'>
                 <nav>
-                    <ul>
+                    <ul className='navlist'>
                         <li>
                             <Link className='nlink' to="/">Home</Link>
                         </li>
